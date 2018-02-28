@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { Grid, Header } from 'semantic-ui-react'
 
 // I got this from semantic-ui sample pages
 const NotFound = () => (
