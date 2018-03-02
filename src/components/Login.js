@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 
 // I got this from semantic-ui sample pages
