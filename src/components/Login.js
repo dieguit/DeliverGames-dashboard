@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+
+import { Login } from '../actions/Login';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -26,7 +29,10 @@ class LoginForm extends Component {
 
   onSubmit(values) {
     this.setState({ submitClicked: true });
-    console.warn(this.props);
+    console.warn('values',values);
+    this.props.Login(values).then(res => {
+      console.warn(res);
+    });
   }
 
   render() {
@@ -53,7 +59,7 @@ class LoginForm extends Component {
             <Form as="form" size='large' onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
               <Segment stacked>
                 <Field
-                  name="user"
+                  name="username"
                   icon="user"
                   placeholder="E-mail or username"
                   type="text"
@@ -79,8 +85,8 @@ class LoginForm extends Component {
 function validate(values) {
   const errors = {};
 
-  if (!values.user) {
-    errors.user = "This username/e-mail does not please me..";
+  if (!values.username) {
+    errors.username = "This username/e-mail does not please me..";
   }
   if (!values.password) {
     errors.password = "You need a password to login bro";
@@ -92,4 +98,6 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'LoginForm',
-})(LoginForm);
+})(
+  connect(null, { Login })(LoginForm)
+);
