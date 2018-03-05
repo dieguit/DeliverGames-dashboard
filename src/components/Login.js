@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
 
 import { Login } from '../actions/Login';
 
@@ -27,12 +27,27 @@ class LoginForm extends Component {
     );
   }
 
-  onSubmit(values) {
+  renderError() {
+    if (!this.state.loginError) {
+      return;
+    }
+    return (
+      <Message
+        error
+        content={this.state.loginError}
+      />
+    );
+  }
+
+  async onSubmit(values) {
     this.setState({ submitClicked: true });
-    console.warn('values',values);
-    this.props.Login(values).then(res => {
-      console.warn(res);
-    });
+    var result = await this.props.Login(values);
+    if (result && result.err) {
+      this.setState({ loginError: "Wrong username / password." });
+    }
+    else {
+      this.props.history.push('/');
+    }
   }
 
   render() {
@@ -56,6 +71,7 @@ class LoginForm extends Component {
             <Header as='h2' color='orange' textAlign='center'>
               Deliver Games Private Area
             </Header>
+            { this.renderError() }
             <Form as="form" size='large' onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
               <Segment stacked>
                 <Field

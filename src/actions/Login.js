@@ -7,18 +7,25 @@ import { API_URL } from '../config';
 export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
-    user,
+    payload: user,
   };
 }
 
 export function Login(user) {
   const request = axios.post(`${API_URL}/rest/login`, user);
-  return (dispatch) => {
-    return request.then(res => {
+  return async (dispatch) => {
+    try {
+      var res = await request;
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       dispatch(setCurrentUser(res.data.user));
-    });
+    }
+    catch(err) {
+      return {
+        type: 'LOGIN_FAILED',
+        err: 'Login failed',
+      }
+    }
   };
 };
