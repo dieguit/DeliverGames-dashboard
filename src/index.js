@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { setCurrentUser } from './actions/Login';
+import { setCurrentUser } from './actions/Auth';
 import setAuthToken from './utils/setAuthToken';
 
 import reducers from './reducers';

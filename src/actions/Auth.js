@@ -15,17 +15,24 @@ export function Login(user) {
   const request = axios.post(`${API_URL}/rest/login`, user);
   return async (dispatch) => {
     try {
-      var res = await request;
+      const res = await request;
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       dispatch(setCurrentUser(res.data.user));
-    }
-    catch(err) {
+    } catch (err) {
       return {
         type: 'LOGIN_FAILED',
         err: 'Login failed',
-      }
+      };
     }
   };
-};
+}
+
+export function Logout() {
+  return async (dispatch) => {
+    localStorage.removeItem('jwtToken');
+    setAuthToken(null);
+    dispatch(setCurrentUser({}));
+  };
+}

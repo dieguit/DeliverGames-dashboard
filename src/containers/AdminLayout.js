@@ -5,61 +5,98 @@ import {
   Sidebar,
   Menu,
   Icon,
-  Segment,
-  Container,
   Button,
+  Label,
+  Container,
   Image,
-  Dropdown,
 } from 'semantic-ui-react';
 
+import { Logout } from '../actions/Auth';
+import Logo from '../assets/Logo180.png';
+
 class AdminLayout extends Component {
-  componentWillMount() {
-    if (!this.props.user.username) {
+  signOut() {
+    this.props.Logout().then(res => {
       this.props.history.push('/login');
-    }
+    });
   }
 
   render() {
     return (
       <div className="AdminLayout">
-        <Sidebar
-          as={Menu}
-          animation="push"
-          width="thin"
-          icon="labeled"
+        <Menu
+          style={{ width: 250 }}
+          as="div"
           vertical
+          fixed="left"
           inverted
-          visible
         >
-          <Menu.Item as={Link} to="/admin" name="home">
+          <Image centered src={Logo} size='small' />
+          <Menu.Item as={Link} to="/" name="home">
             <Icon name="home" />
             Admin Home
-          </Menu.Item>
-          <Menu.Item as={Link} to="/" name="back">
-            <Icon name="reply" />
-            Back to site
-          </Menu.Item>
-          <Menu.Item as={Link} to="/admin/products" name="products">
-            <Icon name="list layout" />
-            Products
-          </Menu.Item>
-          <Menu.Item name="categories">
-            <Icon name="unordered list" />
-            Categories
           </Menu.Item>
           <Menu.Item name="users">
             <Icon name="users" />
             Users
           </Menu.Item>
-          <Menu.Item name="media">
-            <Icon name="image" />
-            Media Manager
+          <Menu.Item as={Link} to="/dev" name="dev">
+            <Icon name="configure" />
+            Developer Tools
           </Menu.Item>
-        </Sidebar>
-        <Sidebar.Pusher>
-          {this.props.user.username}
-          {this.props.children}
-        </Sidebar.Pusher>
+          <Menu.Item>
+            <Menu.Header>Pizza Boy</Menu.Header>
+            <Menu.Menu>
+              <Menu.Item as={Link} to="/" name='ranking' />
+            </Menu.Menu>
+          </Menu.Item>
+          <Menu.Item>
+            <Menu.Header>Eggszy</Menu.Header>
+            <Menu.Menu>
+              <Menu.Item as={Link} to="/" name='ranking' />
+              <Menu.Item as={Link} to="/" name='gifts' />
+            </Menu.Menu>
+          </Menu.Item>
+          <Menu.Item>
+            <Menu.Header>Soccer Team</Menu.Header>
+            <Menu.Menu>
+              <Menu.Item as={Link} to="/" name='ranking' />
+              <Menu.Item as={Link} to="/" name='Game Players' />
+              <Menu.Item as={Link} to="/" name='Items' />
+              <Menu.Item as={Link} to="/" name='Fields' />
+              <Menu.Item as={Link} to="/" name='Field Elements' />
+            </Menu.Menu>
+          </Menu.Item>
+        </Menu>
+        <div style={{ maxWidth: '100%', marginLeft: 250 }}>
+          <div style={{ background: 'black' }}>
+            <Menu inverted style={{ maxWidth: '100%', marginTop: 0 }}>
+              <Menu.Menu position='right'>
+                <Menu.Item>
+                  <Button as='div' labelPosition='right'>
+                    <Button as='div' color='blue'>
+                      <Icon name='user' />
+                    </Button>
+                    <Label as='a' basic color='blue' pointing='left'>
+                      {this.props.user.username}
+                    </Label>
+                  </Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button animated onClick={this.signOut.bind(this)}>
+                    <Button.Content visible>Sign out</Button.Content>
+                    <Button.Content hidden>
+                      Bye bye
+                    </Button.Content>
+                  </Button>
+                </Menu.Item>
+              </Menu.Menu>
+            </Menu>
+          </div>
+          <div style={{ padding: 10 }}>
+            {this.props.children}
+          </div>
+        </div>
       </div>
     );
   }
@@ -71,4 +108,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(AdminLayout);
+export default connect(mapStateToProps, { Logout })(AdminLayout);
