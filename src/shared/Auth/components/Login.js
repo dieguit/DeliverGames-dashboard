@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
 
-import { Login } from '../actions/Auth';
+import { Login } from '../actions';
 
 class LoginForm extends Component {
   constructor(props) {

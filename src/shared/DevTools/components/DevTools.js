@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import GraphiQL from 'graphiql';
 import fetch from 'isomorphic-fetch';
 
-import '../../node_modules/graphiql/graphiql.css';
+import '../../../../node_modules/graphiql/graphiql.css';
 
-import { API_URL } from '../config';
-import AdminLayout from '../containers/AdminLayout';
+import { API_URL } from '../../../config';
+import AdminLayout from '../../Layouts/containers/AdminLayout';
 
 class DevTools extends Component {
   graphQLFetcher(graphQLParams) {

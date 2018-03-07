@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import setAuthToken from '../utils/setAuthToken';
-import { SET_CURRENT_USER } from './ActionTypes';
-import { API_URL } from '../config';
+import setAuthToken from './utils/setAuthToken';
+import { SET_CURRENT_USER } from './actionTypes';
+import { API_URL } from '../../config/index';
 
 export function setCurrentUser(user) {
   return {

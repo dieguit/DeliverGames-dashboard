@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AdminLayout from '../containers/AdminLayout';
+import AdminLayout from '../../Layouts/containers/AdminLayout';
 
 class Homepage extends Component {
   render() {

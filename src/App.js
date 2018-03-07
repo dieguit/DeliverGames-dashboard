@@ -8,11 +8,12 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-import requireAuth from './utils/requireAuth';
-import Homepage from './components/Homepage';
-import Login from './components/Login';
-import DevTools from './components/DevTools';
-import NotFound from './components/NotFound';
+import requireAuth from './shared/Auth/utils/requireAuth';
+import Homepage from './shared/Pages/components/Homepage';
+import Login from './shared/Auth/components/Login';
+import DevTools from './shared/DevTools/components/DevTools';
+import NotFound from './shared/Pages/components/NotFound';
+import { UsersPage } from './shared/Users';
 
 const client = new ApolloClient({
   link: new HttpLink({uri: 'http://localhost:8000/graphql'}),
@@ -26,9 +27,11 @@ class App extends Component {
         <ApolloProvider client={client}>
           <HashRouter>
             <Switch>
-              <Route exact path='/' component={requireAuth(Homepage)} />
               <Route exact path='/login' component={Login} />
+              <Route exact path='/' component={requireAuth(Homepage)} />
+              <Route exact path='/users' component={requireAuth(UsersPage)} />
               <Route exact path='/dev' component={requireAuth(DevTools)} />
+
               <Route path="*" component={NotFound} />
             </Switch>
           </HashRouter>

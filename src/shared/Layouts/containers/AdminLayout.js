@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
-  Sidebar,
   Menu,
   Icon,
   Button,
   Label,
-  Container,
   Image,
 } from 'semantic-ui-react';
 
-import { Logout } from '../actions/Auth';
-import Logo from '../assets/Logo180.png';
+import { Logout } from '../../Auth/actions';
+import Logo from '../../../assets/Logo180.png';
 
 class AdminLayout extends Component {
   signOut() {
     this.props.Logout().then(res => {
       this.props.history.push('/login');
     });
+  }
+
+  logToken() {
+    console.log('jwtToken ', localStorage.jwtToken);
   }
 
   render() {
@@ -36,7 +38,7 @@ class AdminLayout extends Component {
             <Icon name="home" />
             Admin Home
           </Menu.Item>
-          <Menu.Item name="users">
+          <Menu.Item as={Link} to="/users" name="users">
             <Icon name="users" />
             Users
           </Menu.Item>
@@ -73,7 +75,8 @@ class AdminLayout extends Component {
             <Menu inverted style={{ maxWidth: '100%', marginTop: 0 }}>
               <Menu.Menu position='right'>
                 <Menu.Item>
-                  <Button as='div' labelPosition='right'>
+                  <Button as='div' labelPosition='right' title='Get Token!'
+                          onClick={this.logToken}>
                     <Button as='div' color='blue'>
                       <Icon name='user' />
                     </Button>
@@ -104,7 +107,7 @@ class AdminLayout extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.login.user,
+    user: state.auth.user,
   };
 }
 

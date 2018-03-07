@@ -8,10 +8,10 @@ import jwt from 'jsonwebtoken';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { setCurrentUser } from './actions/Auth';
-import setAuthToken from './utils/setAuthToken';
+import { setCurrentUser } from './shared/Auth/actions';
+import setAuthToken from './shared/Auth/utils/setAuthToken';
 
-import reducers from './reducers';
+import reducers from './rootReducer';
 
 const store = createStore(reducers, compose(applyMiddleware(ReduxThunk)));
 //const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);

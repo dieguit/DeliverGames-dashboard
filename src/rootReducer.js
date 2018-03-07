@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 
-import LoginReducer from './LoginReducer';
-import ActiveUserReducer from './ActiveUserReducer';
+import AuthReducer from './shared/Auth/reducer';
+import { UsersReducer } from './shared/Users';
 
 const rootReducer = combineReducers({
   form: reduxFormReducer,
-  login: LoginReducer,
-  activeUser: ActiveUserReducer,
+  auth: AuthReducer,
+  users: UsersReducer,
 });
 
 export default rootReducer;
