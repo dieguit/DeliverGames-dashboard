@@ -9,7 +9,7 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      submitClicked: false,
+      loading: false,
     };
   }
 
@@ -40,10 +40,11 @@ class LoginForm extends Component {
   }
 
   async onSubmit(values) {
-    this.setState({ submitClicked: true });
+    this.setState({ loading: true });
     var result = await this.props.Login(values);
     if (result && result.err) {
       this.setState({ loginError: "Wrong username / password." });
+      this.setState({ loading: false });
     }
     else {
       this.props.history.push('/');
@@ -51,7 +52,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { handleSubmit, submitted } = this.props;
+    const { handleSubmit } = this.props;
 
     return (
       <div className='login-form'>
@@ -88,7 +89,10 @@ class LoginForm extends Component {
                   type="password"
                   component={this.renderField}
                 />
-                <Button disabled={submitted} color='orange' fluid size='large'>Login</Button>
+                <Button disabled={ this.state.loading } loading={ this.state.loading }
+                        color='orange' fluid size='large'>
+                  Login
+                </Button>
               </Segment>
             </Form>
           </Grid.Column>
