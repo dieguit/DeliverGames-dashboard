@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Icon, Popup } from 'semantic-ui-react';
 
-import { getUsers, deleteUser, setModalStatus } from '../actions';
+import { getUsers, deleteUser, setEditUser, setModalStatus } from '../actions';
 
 import AdminLayout from '../../Layouts/containers/AdminLayout';
 import UserFormModal from './UserForm';
@@ -28,6 +28,11 @@ class Users extends Component {
     });
   }
 
+  editItem(user) {
+    this.props.setEditUser(user);
+    this.props.setModalStatus(true);
+  }
+
   deleteItem(id) {
     this.setState({ deletingItem: true });
     this.props.deleteUser(id).then((res) => {
@@ -36,41 +41,44 @@ class Users extends Component {
   }
 
   renderRow(item, index) {
-    item.updatedAt = new Date(item.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    if (item) {
+      item.updatedAt = new Date(item.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-    return (
-      <Table.Row key={ item.id }>
-        <Table.Cell>{ item.id }</Table.Cell>
-        <Table.Cell>{ item.username }</Table.Cell>
-        <Table.Cell>{ item.email }</Table.Cell>
-        <Table.Cell>{ item.updatedAt } </Table.Cell>
-        <Table.Cell collapsing>
-          <Button icon primary size='mini'
-
-          >
-            <Icon name='edit' />
-          </Button>
-          <Popup
-            trigger={
-              <Button icon color='red' size='mini'>
-                <Icon name='trash' />
-              </Button>
-            }
-            content={
-              <Button
-                color='red'
-                loading={ this.state.deletingItem }
-                disabled={ this.state.deletingItem }
-                content={`Confirm deleting ${item.username}`}
-                onClick={ () => this.deleteItem(item.id) }
-              />
-            }
-            on='click'
-            position='top right'
-          />
-        </Table.Cell>
-      </Table.Row>
-    );
+      return (
+        <Table.Row key={ item.id }>
+          <Table.Cell>{ item.id }</Table.Cell>
+          <Table.Cell>{ item.username }</Table.Cell>
+          <Table.Cell>{ item.email }</Table.Cell>
+          <Table.Cell>{ item.updatedAt } </Table.Cell>
+          <Table.Cell collapsing>
+            <Button icon primary size='mini'
+                    onClick={ () => this.editItem(item) }
+            >
+              <Icon name='edit' />
+            </Button>
+            <Popup
+              trigger={
+                <Button icon color='red' size='mini'>
+                  <Icon name='trash' />
+                </Button>
+              }
+              content={
+                <Button
+                  color='red'
+                  loading={ this.state.deletingItem }
+                  disabled={ this.state.deletingItem }
+                  content={`Confirm deleting ${item.username}`}
+                  onClick={ () => this.deleteItem(item.id) }
+                />
+              }
+              on='click'
+              position='top right'
+            />
+          </Table.Cell>
+        </Table.Row>
+      );
+    }
+    return undefined;
   }
 
   render() {
@@ -116,4 +124,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getUsers, setModalStatus, deleteUser })(Users);
+export default connect(mapStateToProps, {
+  getUsers, setModalStatus, deleteUser, setEditUser,
+})(Users);
