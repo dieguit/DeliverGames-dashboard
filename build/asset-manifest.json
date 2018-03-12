@@ -1,0 +1,20 @@
+{
+  "main.css": "static/css/main.50b6a7ac.css",
+  "main.css.map": "static/css/main.50b6a7ac.css.map",
+  "main.js": "static/js/main.0de15bbc.js",
+  "main.js.map": "static/js/main.0de15bbc.js.map",
+  "static/media/GraphQLLanguageService.js.flow": "static/media/GraphQLLanguageService.js.fa07138d.flow",
+  "static/media/Logo180.png": "static/media/Logo180.f0194df9.png",
+  "static/media/autocompleteUtils.js.flow": "static/media/autocompleteUtils.js.4ce7ba19.flow",
+  "static/media/flags.png": "static/media/flags.9c74e172.png",
+  "static/media/getAutocompleteSuggestions.js.flow": "static/media/getAutocompleteSuggestions.js.5f735c7b.flow",
+  "static/media/getDefinition.js.flow": "static/media/getDefinition.js.0c48668e.flow",
+  "static/media/getDiagnostics.js.flow": "static/media/getDiagnostics.js.889c0b27.flow",
+  "static/media/getOutline.js.flow": "static/media/getOutline.js.458a3518.flow",
+  "static/media/icons.eot": "static/media/icons.263bfe56.eot",
+  "static/media/icons.svg": "static/media/icons.b42b4467.svg",
+  "static/media/icons.ttf": "static/media/icons.d3490a32.ttf",
+  "static/media/icons.woff": "static/media/icons.7bc63d50.woff",
+  "static/media/icons.woff2": "static/media/icons.27c88389.woff2",
+  "static/media/index.js.flow": "static/media/index.js.641230f5.flow"
+}
