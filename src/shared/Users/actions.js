@@ -1,7 +1,9 @@
 import axios from 'axios';
+import Notifications from 'react-notification-system-redux';
 
 import { LIST_USERS, CREATE_USER, DELETE_USER, UPDATE_USER, SET_MODAL_STATUS, SET_EDIT_USER } from './actionTypes';
 import { API_URL } from '../../config/index';
+import { ok, ko } from '../Notifications';
 
 export function getUsers() {
   const request = axios.get(`${API_URL}/priv/users`);
@@ -23,11 +25,15 @@ export function createUser(user) {
   return async (dispatch) => {
     try {
       const createdUser = await request;
-      return dispatch({
+      dispatch({
         type: CREATE_USER,
         payload: createdUser.data.user,
       });
-    } catch (err) {}
+
+      dispatch(Notifications.success(ok('User', user.username, 'created')));
+    } catch (err) {
+      dispatch(Notifications.error(ko(err.response.data.message)));
+    }
   };
 }
 
@@ -36,11 +42,15 @@ export function updateUser(user) {
   return async (dispatch) => {
     try {
       await request;
-      return dispatch({
+      dispatch({
         type: UPDATE_USER,
         payload: user,
       });
-    } catch (err) {}
+
+      dispatch(Notifications.success(ok('User', user.username, 'updated')));
+    } catch (err) {
+      dispatch(Notifications.error(ko(err.response.data.message)));
+    }
   };
 }
 
@@ -49,11 +59,15 @@ export function deleteUser(id) {
   return async (dispatch) => {
     try {
       await request;
-      return dispatch({
+      dispatch({
         type: DELETE_USER,
         payload: id,
       });
-    } catch (err) {}
+
+      dispatch(Notifications.success(ok('User with ID ', id, 'deleted')));
+    } catch (err) {
+      dispatch(Notifications.error(ko(err.response.data.message)));
+    }
   };
 }
 

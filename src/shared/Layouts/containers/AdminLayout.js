@@ -10,6 +10,9 @@ import {
 } from 'semantic-ui-react';
 
 import { Logout } from '../../Auth/actions';
+
+import { GenericNotification } from '../../Notifications';
+
 import Logo from '../../../assets/Logo180.png';
 
 class AdminLayout extends Component {
@@ -100,6 +103,7 @@ class AdminLayout extends Component {
             {this.props.children}
           </div>
         </div>
+        <GenericNotification />
       </div>
     );
   }
