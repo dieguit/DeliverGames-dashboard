@@ -1,6 +1,7 @@
 {
   "name": "delivergames-dashboard",
   "author": "Diego Gil <diego.gil2505@gmail.com>",
+  "homepage": "http://deliver.games/dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
