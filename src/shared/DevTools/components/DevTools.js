@@ -13,9 +13,9 @@ class DevTools extends Component {
 
     return (
       <AdminLayout {...this.props}>
-        <div className='DevTools' >
+        <div className="DevTools">
           <h1>Developer Tools</h1>
-          <iframe style={styles} src={`${API_URL}/graphiql`}></iframe>
+          <iframe style={styles} src={`${API_URL}/graphiql`} />
         </div>
       </AdminLayout>
     );

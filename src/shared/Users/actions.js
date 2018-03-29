@@ -1,7 +1,14 @@
 import axios from 'axios';
 import Notifications from 'react-notification-system-redux';
 
-import { LIST_USERS, CREATE_USER, DELETE_USER, UPDATE_USER, SET_MODAL_STATUS, SET_EDIT_USER } from './actionTypes';
+import {
+  LIST_USERS,
+  CREATE_USER,
+  DELETE_USER,
+  UPDATE_USER,
+  SET_MODAL_STATUS,
+  SET_EDIT_USER,
+} from './actionTypes';
 import { API_URL } from '../../config/index';
 import { ok, ko } from '../Notifications';
 

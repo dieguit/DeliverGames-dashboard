@@ -7,14 +7,8 @@ class GenericNotification extends Component {
   render() {
     const { notifications } = this.props;
 
-    return (
-      <Notifications
-        notifications={ notifications }
-      />
-    );
+    return <Notifications notifications={notifications} />;
   }
 }
 
-export default connect(
-  state => ({ notifications: state.notifications }),
-)(GenericNotification);
+export default connect((state) => ({ notifications: state.notifications }))(GenericNotification);

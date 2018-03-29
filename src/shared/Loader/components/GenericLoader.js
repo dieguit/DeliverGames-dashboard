@@ -4,11 +4,11 @@ import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 class GenericLoader extends Component {
   render() {
     return (
-      <Dimmer.Dimmable as={Segment} dimmed={ this.props.loading } { ...this.props }>
-        <Dimmer active={ this.props.loading }>
-          <Loader>{ this.props.text }</Loader>
+      <Dimmer.Dimmable as={Segment} dimmed={this.props.loading} {...this.props}>
+        <Dimmer active={this.props.loading}>
+          <Loader>{this.props.text}</Loader>
         </Dimmer>
-        { this.props.children }
+        {this.props.children}
       </Dimmer.Dimmable>
     );
   }

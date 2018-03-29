@@ -1,5 +1,3 @@
 import GenericLoader from './components/GenericLoader';
 
-export {
-  GenericLoader,
-}
+export { GenericLoader };

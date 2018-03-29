@@ -18,14 +18,14 @@ class Users extends Component {
     };
   }
 
-  openModal() {
-    this.props.setModalStatus(true);
-  }
-
   componentWillMount() {
     this.props.getUsers().then((res) => {
       this.setState({ loading: false });
     });
+  }
+
+  openModal() {
+    this.props.setModalStatus(true);
   }
 
   editItem(user) {
@@ -42,37 +42,40 @@ class Users extends Component {
 
   renderRow(item, index) {
     if (item) {
-      item.updatedAt = new Date(item.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      item.updatedAt = new Date(item.updatedAt).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
 
       return (
-        <Table.Row key={ item.id }>
-          <Table.Cell>{ item.id }</Table.Cell>
-          <Table.Cell>{ item.username }</Table.Cell>
-          <Table.Cell>{ item.email }</Table.Cell>
-          <Table.Cell>{ item.updatedAt } </Table.Cell>
+        <Table.Row key={item.id}>
+          <Table.Cell>{item.id}</Table.Cell>
+          <Table.Cell>{item.username}</Table.Cell>
+          <Table.Cell>{item.email}</Table.Cell>
+          <Table.Cell>{item.updatedAt} </Table.Cell>
           <Table.Cell collapsing>
-            <Button icon primary size='mini'
-                    onClick={ () => this.editItem(item) }
+            <Button icon primary size="mini" onClick={() => this.editItem(item)}
             >
-              <Icon name='edit' />
+              <Icon name="edit" />
             </Button>
             <Popup
               trigger={
-                <Button icon color='red' size='mini'>
-                  <Icon name='trash' />
+                <Button icon color="red" size="mini">
+                  <Icon name="trash" />
                 </Button>
               }
               content={
                 <Button
-                  color='red'
-                  loading={ this.state.deletingItem }
-                  disabled={ this.state.deletingItem }
+                  color="red"
+                  loading={this.state.deletingItem}
+                  disabled={this.state.deletingItem}
                   content={`Confirm deleting ${item.username}`}
-                  onClick={ () => this.deleteItem(item.id) }
+                  onClick={() => this.deleteItem(item.id)}
                 />
               }
-              on='click'
-              position='top right'
+              on="click"
+              position="top right"
             />
           </Table.Cell>
         </Table.Row>
@@ -84,7 +87,7 @@ class Users extends Component {
   render() {
     const { users } = this.props.users;
 
-    const renderModal = modalOpened => {
+    const renderModal = (modalOpened) => {
       if (modalOpened) {
         return <UserFormModal />;
       }
@@ -93,22 +96,22 @@ class Users extends Component {
 
     return (
       <AdminLayout {...this.props}>
-        <div className='AdminWellcome'>
+        <div className="AdminWellcome">
           <h1>Users</h1>
-          <GenericLoader loading={ this.state.loading } text='Getting user list'>
+          <GenericLoader loading={this.state.loading} text="Getting user list">
             <div>
-              <Button icon primary labelPosition='left'
-                      onClick={ this.openModal.bind(this) }
+              <Button icon primary labelPosition="left" onClick={this.openModal.bind(this)}
               >
                 Create
-                <Icon name='add' />
+                <Icon name="add" />
               </Button>
-              <Table striped
+              <Table
+                striped
                 headerRow={['ID', 'User Name', 'Email', 'Modified', 'Actions']}
-                tableData={ users }
-                renderBodyRow={ this.renderRow.bind(this) }
+                tableData={users}
+                renderBodyRow={this.renderRow.bind(this)}
               />
-              { renderModal(this.props.modalOpened) }
+              {renderModal(this.props.modalOpened)}
             </div>
           </GenericLoader>
         </div>
@@ -125,5 +128,8 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  getUsers, setModalStatus, deleteUser, setEditUser,
+  getUsers,
+  setModalStatus,
+  deleteUser,
+  setEditUser,
 })(Users);

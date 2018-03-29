@@ -17,11 +17,11 @@ class LoginForm extends Component {
     return (
       <Form.Input
         fluid
-        iconPosition='left'
+        iconPosition="left"
         icon={field.icon}
         placeholder={field.placeholder}
         type={field.type}
-        error={field.meta.touched && field.meta.error != null }
+        error={field.meta.touched && field.meta.error != null}
         {...field.input}
       />
     );
@@ -31,22 +31,16 @@ class LoginForm extends Component {
     if (!this.state.loginError) {
       return;
     }
-    return (
-      <Message
-        error
-        content={this.state.loginError}
-      />
-    );
+    return <Message error content={this.state.loginError} />;
   }
 
   async onSubmit(values) {
     this.setState({ loading: true });
     var result = await this.props.Login(values);
     if (result && result.err) {
-      this.setState({ loginError: "Wrong username / password." });
+      this.setState({ loginError: 'Wrong username / password.' });
       this.setState({ loading: false });
-    }
-    else {
+    } else {
       this.props.history.push('/');
     }
   }
@@ -55,7 +49,7 @@ class LoginForm extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div className='login-form'>
+      <div className="login-form">
         <style>{`
         body > div,
         body > div > div,
@@ -63,17 +57,13 @@ class LoginForm extends Component {
           height: 100%;
         }
       `}</style>
-        <Grid
-          textAlign='center'
-          style={{height: '100%'}}
-          verticalAlign='middle'
-        >
-          <Grid.Column style={{maxWidth: 450}}>
-            <Header as='h2' color='orange' textAlign='center'>
+        <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as="h2" color="orange" textAlign="center">
               Deliver Games Private Area
             </Header>
-            { this.renderError() }
-            <Form as="form" size='large' onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+            {this.renderError()}
+            <Form as="form" size="large" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
               <Segment stacked>
                 <Field
                   name="username"
@@ -89,8 +79,13 @@ class LoginForm extends Component {
                   type="password"
                   component={this.renderField}
                 />
-                <Button disabled={ this.state.loading } loading={ this.state.loading }
-                        color='orange' fluid size='large'>
+                <Button
+                  disabled={this.state.loading}
+                  loading={this.state.loading}
+                  color="orange"
+                  fluid
+                  size="large"
+                >
                   Login
                 </Button>
               </Segment>
@@ -106,10 +101,10 @@ function validate(values) {
   const errors = {};
 
   if (!values.username) {
-    errors.username = "This username/e-mail does not please me..";
+    errors.username = 'This username/e-mail does not please me..';
   }
   if (!values.password) {
-    errors.password = "You need a password to login bro";
+    errors.password = 'You need a password to login bro';
   }
 
   return errors;
@@ -118,6 +113,4 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'LoginForm',
-})(
-  connect(null, { Login })(LoginForm)
-);
+})(connect(null, { Login })(LoginForm));

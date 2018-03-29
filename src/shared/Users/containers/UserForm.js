@@ -22,7 +22,7 @@ class UserForm extends Component {
         label={field.label}
         placeholder={field.placeholder}
         type={field.type}
-        error={field.meta.touched && field.meta.error != null }
+        error={field.meta.touched && field.meta.error != null}
         {...field.input}
       />
     );
@@ -64,20 +64,18 @@ class UserForm extends Component {
           <div>
             <Checkbox
               label="Change password?"
-              checked={ this.state.willChangePass }
-              onChange={ () => this.setState({ willChangePass: !this.state.willChangePass }) }
+              checked={this.state.willChangePass}
+              onChange={() => this.setState({ willChangePass: !this.state.willChangePass })}
             />
-            {
-              this.state.willChangePass && (
-                <Field
-                  name="password"
-                  placeholder="Password"
-                  label="Password*"
-                  type="password"
-                  component={ this.renderField }
-                />
-              )
-            }
+            {this.state.willChangePass && (
+              <Field
+                name="password"
+                placeholder="Password"
+                label="Password*"
+                type="password"
+                component={this.renderField}
+              />
+            )}
           </div>
         );
       }
@@ -93,16 +91,19 @@ class UserForm extends Component {
     };
 
     return (
-      <Modal dimmer='blurring' size='large'
-             style={
-               //tmp fix @see: https://github.com/Semantic-Org/Semantic-UI-React/issues/2550
-               { display: 'fixed !important', marginTop: '0 !important' }
-             }
-             open={ this.props.modalOpened }
-             onClose={ this.closeModal }>
-        <Modal.Header>{ editingUser && editingUser.id ? 'Update' : 'Create' }</Modal.Header>
+      <Modal
+        dimmer="blurring"
+        size="large"
+        style={
+          //tmp fix @see: https://github.com/Semantic-Org/Semantic-UI-React/issues/2550
+          { display: 'fixed !important', marginTop: '0 !important' }
+        }
+        open={this.props.modalOpened}
+        onClose={this.closeModal}
+      >
+        <Modal.Header>{editingUser && editingUser.id ? 'Update' : 'Create'}</Modal.Header>
         <Modal.Content>
-          <Form as="form" onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+          <Form as="form" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <Segment basic>
               <Field
                 name="username"
@@ -118,20 +119,23 @@ class UserForm extends Component {
                 type="text"
                 component={this.renderField}
               />
-              { renderPasswordField() }
+              {renderPasswordField()}
             </Segment>
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='grey' disabled={ this.state.loading } onClick={ this.closeModal }>
+          <Button color="grey" disabled={this.state.loading} onClick={this.closeModal}>
             Cancel
           </Button>
-          <Button positive type='submit'
-                  icon='checkmark'
-                  labelPosition='right'
-                  content="Save"
-                  disabled={ this.state.loading } loading={ this.state.loading }
-                  onClick={ handleSubmit(this.onSubmit.bind(this)) }
+          <Button
+            positive
+            type="submit"
+            icon="checkmark"
+            labelPosition="right"
+            content="Save"
+            disabled={this.state.loading}
+            loading={this.state.loading}
+            onClick={handleSubmit(this.onSubmit.bind(this))}
           />
         </Modal.Actions>
       </Modal>
@@ -159,7 +163,7 @@ function validate(values) {
   return errors;
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   modalOpened: state.users.modalOpened,
   initialValues: {
     ...state.users.editingUser,
@@ -173,4 +177,6 @@ const connectedReduxForm = reduxForm({
   form: 'createUserModalForm',
 })(UserForm);
 
-export default connect(mapStateToProps, { createUser, updateUser, setEditUser, setModalStatus })(connectedReduxForm);
+export default connect(mapStateToProps, { createUser, updateUser, setEditUser, setModalStatus })(
+  connectedReduxForm
+);
